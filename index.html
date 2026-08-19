@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>蛇吃兔子</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div id="screen-home" class="screen">
+  <h1>🐍 蛇吃兔子</h1>
+  <p class="subtitle">异地联机对战 · 一人扮蛇，一人扮兔</p>
+
+  <div class="panels">
+    <div class="panel">
+      <h2>创建房间</h2>
+      <p class="hint">选好你的角色，创建后把房间码发给对方</p>
+      <div class="role-choice">
+        <label><input type="radio" name="create-role" value="snake" checked /> 🐍 我当蛇</label>
+        <label><input type="radio" name="create-role" value="rabbit" /> 🐰 我当兔子</label>
+      </div>
+      <button id="btn-create">创建房间</button>
+    </div>
+
+    <div class="panel">
+      <h2>加入房间</h2>
+      <p class="hint">输入对方发给你的房间码</p>
+      <input id="input-join-code" type="text" maxlength="6" placeholder="房间码" autocomplete="off" />
+      <button id="btn-join">加入房间</button>
+    </div>
+  </div>
+
+  <p id="home-error" class="error hidden"></p>
+</div>
+
+<div id="screen-lobby" class="screen hidden">
+  <h2>房间码</h2>
+  <div id="lobby-code" class="room-code"></div>
+  <p id="lobby-role" class="hint"></p>
+  <p id="lobby-status">等待对方加入…</p>
+  <button id="btn-lobby-back" class="secondary">返回首页</button>
+</div>
+
+<div id="screen-game" class="screen hidden">
+  <div class="hud">
+    <span id="hud-role"></span>
+    <span id="hud-timer">75</span>
+  </div>
+  <div id="game-stage">
+    <canvas id="game-canvas" width="800" height="600"></canvas>
+    <div id="joystick-base" class="joystick hidden">
+      <div id="joystick-knob"></div>
+    </div>
+  </div>
+  <p class="hint" id="control-hint">方向键 / WASD 移动</p>
+</div>
+
+<div id="rotate-overlay">
+  <div class="rotate-icon">📱</div>
+  <p>请把手机横过来玩～</p>
+</div>
+
+<div id="screen-end" class="screen hidden">
+  <h2 id="end-result"></h2>
+  <button id="btn-restart">再来一局</button>
+  <button id="btn-end-home" class="secondary">返回首页</button>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="firebase-config.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
