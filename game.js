@@ -39,7 +39,23 @@ const joystickBase = document.getElementById("joystick-base");
 const joystickKnob = document.getElementById("joystick-knob");
 const controlHintEl = document.getElementById("control-hint");
 const hudEl = document.querySelector("#screen-game .hud");
+const appShellEl = document.getElementById("app-shell");
 const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+// 手机 Safari 的悬浮地址栏/标签栏有时会浮在页面内容上方而不是把内容往下推，
+// 导致画面顶部（HUD、标题）被挡住。用 visualViewport 量出被挡住的高度，把内容整体平移下去。
+function adjustForBrowserChrome() {
+  if (!window.visualViewport || !appShellEl) return;
+  const offset = window.visualViewport.offsetTop || 0;
+  appShellEl.style.transform = offset > 0.5 ? `translateY(${offset}px)` : "";
+}
+
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", adjustForBrowserChrome);
+  window.visualViewport.addEventListener("scroll", adjustForBrowserChrome);
+}
+window.addEventListener("load", adjustForBrowserChrome);
+window.addEventListener("orientationchange", () => setTimeout(adjustForBrowserChrome, 300));
 
 // 让画布随屏幕可用空间自适应，避免在窄/矮的手机屏幕上出现两侧黑边或超出屏幕
 function resizeCanvas() {
@@ -59,6 +75,7 @@ function resizeCanvas() {
 }
 
 window.addEventListener("resize", () => {
+  adjustForBrowserChrome();
   if (state.loopRunning) resizeCanvas();
 });
 
@@ -227,6 +244,7 @@ function handleStateChange(s) {
     joystickBase.classList.toggle("hidden", !isTouchDevice);
     controlHintEl.textContent = isTouchDevice ? "拖动右下角摇杆移动" : "方向键 / WASD 移动";
     resizeCanvas(); // 屏幕现在可见了，按实际可用空间算画布大小
+    adjustForBrowserChrome();
     state.local = spawnFor(state.myRole);
     state.remote = spawnFor(state.otherRole);
     state.remoteRender = { ...state.remote };

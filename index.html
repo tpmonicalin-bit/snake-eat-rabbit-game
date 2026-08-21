@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<div id="app-shell">
 <div id="screen-home" class="screen">
   <h1>🐍 蛇吃兔子</h1>
   <p class="subtitle">异地联机对战 · 一人扮蛇，一人扮兔</p>
@@ -56,15 +57,16 @@
   <p class="hint" id="control-hint">方向键 / WASD 移动</p>
 </div>
 
-<div id="rotate-overlay">
-  <div class="rotate-icon">📱</div>
-  <p>请把手机横过来玩～</p>
-</div>
-
 <div id="screen-end" class="screen hidden">
   <h2 id="end-result"></h2>
   <button id="btn-restart">再来一局</button>
   <button id="btn-end-home" class="secondary">返回首页</button>
+</div>
+</div>
+
+<div id="rotate-overlay">
+  <div class="rotate-icon">📱</div>
+  <p>请把手机横过来玩～</p>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>

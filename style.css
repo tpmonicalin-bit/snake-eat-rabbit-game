@@ -5,12 +5,19 @@
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh; /* 手机浏览器地址栏/工具栏显隐时用动态视口高度，减少内容被工具栏遮挡的情况 */
   display: flex;
   align-items: center;
   justify-content: center;
   background: radial-gradient(circle at 50% 0%, #1e3d2f 0%, #0d1f17 60%, #071410 100%);
   color: #eafff2;
   font-family: "PingFang SC", "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+#app-shell {
+  width: 100%;
+  /* 手机 Safari 悬浮地址栏/标签栏挡住内容时，由 game.js 动态加 translateY 把内容平移到可视区域内 */
+  transition: transform 0.15s ease-out;
 }
 
 .screen {
