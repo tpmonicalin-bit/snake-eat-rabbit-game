@@ -21,7 +21,13 @@ body {
   width: 100%;
   max-width: 880px;
   margin: 0 auto; /* 加了 width:100% 后 body 的 justify-content:center 会失效（撑满没有多余空间可居中了），靠 max-width+margin:auto 自己居中 */
-  /* 手机 Safari 悬浮地址栏/标签栏挡住内容时，由 game.js 动态加 translateY 把内容平移到可视区域内 */
+  /* 配合 meta viewport-fit=cover：iOS 会把这个内边距动态算成"当前被系统 UI（刘海/悬浮工具栏）
+     实际挡住的距离"，比自己猜工具栏高度可靠很多，横竖屏都适用 */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  /* 手机 Safari 悬浮地址栏/标签栏挡住内容时，由 game.js 动态加 translateY 把内容平移到可视区域内（兜底） */
   transition: transform 0.15s ease-out;
 }
 
@@ -94,6 +100,42 @@ h2 {
     width: 100%;
     max-width: 360px;
     padding: 18px;
+  }
+}
+
+/* 竖向空间很紧张时（横屏手机、微信内置浏览器上下工具栏吃掉一大截高度）
+   进一步压缩，目标是首页整个不用滚动就能看完，Monica 明确要求"固定"不要滚动 */
+@media (max-height: 480px) {
+  .screen {
+    padding: 10px 16px;
+  }
+  h1 {
+    font-size: 1.4rem;
+    margin-bottom: 2px;
+  }
+  .subtitle {
+    font-size: 0.72rem;
+    margin-bottom: 8px;
+  }
+  .panels {
+    gap: 8px;
+  }
+  .panel {
+    padding: 10px 14px;
+  }
+  .role-choice {
+    margin: 6px 0;
+    gap: 4px;
+  }
+  .hint {
+    font-size: 0.72rem;
+  }
+  input[type="text"] {
+    padding: 6px 10px;
+    margin-bottom: 8px;
+  }
+  button {
+    padding: 8px 16px;
   }
 }
 

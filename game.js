@@ -72,8 +72,13 @@ function resizeCanvas() {
   const padH = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
   const padV = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
 
+  // #app-shell 自己也有 env(safe-area-inset-*) 内边距（用来避开刘海/悬浮工具栏），
+  // 算画布可用高度时要把这部分也算进去，不然画布会撑得比实际能看到的区域还高
+  const shellCs = appShellEl ? getComputedStyle(appShellEl) : null;
+  const shellPadV = shellCs ? parseFloat(shellCs.paddingTop) + parseFloat(shellCs.paddingBottom) : 0;
+
   const availW = Math.min(800, screens.game.clientWidth - padH);
-  const reservedH = (hudEl ? hudEl.offsetHeight : 40) + (controlHintEl ? controlHintEl.offsetHeight : 24) + padV + 24;
+  const reservedH = (hudEl ? hudEl.offsetHeight : 40) + (controlHintEl ? controlHintEl.offsetHeight : 24) + padV + shellPadV + 24;
   const availH = Math.min(600, window.innerHeight - reservedH);
 
   CANVAS_W = Math.max(320, Math.round(availW));
