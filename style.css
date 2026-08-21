@@ -17,6 +17,8 @@ body {
 
 #app-shell {
   width: 100%;
+  max-width: 880px;
+  margin: 0 auto; /* 加了 width:100% 后 body 的 justify-content:center 会失效（撑满没有多余空间可居中了），靠 max-width+margin:auto 自己居中 */
   /* 手机 Safari 悬浮地址栏/标签栏挡住内容时，由 game.js 动态加 translateY 把内容平移到可视区域内 */
   transition: transform 0.15s ease-out;
 }
