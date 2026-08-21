@@ -23,7 +23,7 @@ body {
   margin: 0 auto; /* 加了 width:100% 后 body 的 justify-content:center 会失效（撑满没有多余空间可居中了），靠 max-width+margin:auto 自己居中 */
   /* 配合 meta viewport-fit=cover：iOS 会把这个内边距动态算成"当前被系统 UI（刘海/悬浮工具栏）
      实际挡住的距离"，比自己猜工具栏高度可靠很多，横竖屏都适用 */
-  padding-top: env(safe-area-inset-top);
+  padding-top: calc(env(safe-area-inset-top) + 14px); /* 多留一点余量，防止悬浮工具栏偶尔比上报的值高一点 */
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   padding-right: env(safe-area-inset-right);
@@ -137,6 +137,49 @@ h2 {
   button {
     padding: 8px 16px;
   }
+}
+
+/* 微信内置浏览器：上下都有自己的工具栏吃掉高度，且不一定诚实上报
+   env(safe-area-inset-*) / innerHeight，靠 game.js 里判断 UA 加的 .is-wechat
+   走一套更激进、不依赖它自报尺寸的固定紧凑排版 */
+.is-wechat #app-shell {
+  padding-top: 8px;
+}
+.is-wechat .screen {
+  padding: 6px 14px;
+}
+.is-wechat h1 {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+.is-wechat .subtitle {
+  font-size: 0.62rem;
+  margin-bottom: 4px;
+}
+.is-wechat .panels {
+  gap: 6px;
+}
+.is-wechat .panel {
+  padding: 6px 10px;
+}
+.is-wechat .role-choice {
+  margin: 3px 0;
+  gap: 2px;
+}
+.is-wechat .hint {
+  font-size: 0.62rem;
+}
+.is-wechat input[type="text"] {
+  padding: 4px 8px;
+  margin-bottom: 4px;
+}
+.is-wechat button {
+  padding: 5px 12px;
+  font-size: 0.85rem;
+}
+.is-wechat .hud {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
 }
 
 .role-choice {

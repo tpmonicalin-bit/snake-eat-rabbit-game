@@ -42,6 +42,12 @@ const hudEl = document.querySelector("#screen-game .hud");
 const appShellEl = document.getElementById("app-shell");
 const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
+// 微信内置浏览器不一定诚实上报 env(safe-area-inset-*)，也不一定精确反映
+// 自己上下工具栏占用的高度，靠 CSS 猜它的可用空间不可靠，所以直接认 UA 用专门更紧凑的排版
+if (/MicroMessenger/i.test(navigator.userAgent)) {
+  document.documentElement.classList.add("is-wechat");
+}
+
 // 手机 Safari 的悬浮地址栏/标签栏有时会浮在页面内容上方而不是把内容往下推，
 // 导致画面顶部（HUD、标题）被挡住。用 visualViewport 量出被挡住的高度，把内容整体平移下去。
 function adjustForBrowserChrome() {
