@@ -229,8 +229,10 @@ canvas {
   border-radius: 16px;
   border: 2px solid rgba(255, 255, 255, 0.15);
   /* 实际显示尺寸由 game.js 里的 resizeCanvas() 按屏幕可用空间直接设置画布的 width/height 属性，
-     这里只保留一个兜底上限，避免极端情况下撑爆容器 */
+     这里只保留一个兜底上限，避免极端情况下撑爆容器；height:auto 保证万一 max-width 真的把
+     宽度压小了，高度也跟着等比例缩，不会把圆形的蛇/兔子/花朵压扁成椭圆 */
   max-width: 100%;
+  height: auto;
   display: block;
   margin: 0 auto;
   touch-action: none;

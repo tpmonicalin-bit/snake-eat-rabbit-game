@@ -93,6 +93,14 @@ window.addEventListener("resize", () => {
   if (state.loopRunning) resizeCanvas();
 });
 
+// 转屏瞬间 iOS 的 innerWidth/innerHeight 有时会有一小段时间还没更新成新方向的值，
+// resize 事件当下算出来的画布尺寸可能不准；转屏结束后再补算一次保险
+window.addEventListener("orientationchange", () => {
+  setTimeout(() => {
+    if (state.loopRunning) resizeCanvas();
+  }, 300);
+});
+
 // ===== 状态 =====
 const state = {
   roomId: null,
