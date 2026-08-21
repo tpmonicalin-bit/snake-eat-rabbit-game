@@ -57,6 +57,15 @@ if (window.visualViewport) {
 window.addEventListener("load", adjustForBrowserChrome);
 window.addEventListener("orientationchange", () => setTimeout(adjustForBrowserChrome, 300));
 
+// iPhone 横屏时 Safari 常年用"浮在页面上方"的紧凑工具栏（不是把页面往下推），
+// 只有页面本身可以滚动一点点时，Safari 才会把工具栏正常收起/停靠而不是悬浮遮挡。
+// body 特意比视口高 1px（见 style.css），这里主动滚一下把工具栏"顶"下去。
+function nudgeScrollToDockToolbar() {
+  window.scrollTo(0, 1);
+}
+window.addEventListener("load", () => setTimeout(nudgeScrollToDockToolbar, 50));
+window.addEventListener("orientationchange", () => setTimeout(nudgeScrollToDockToolbar, 350));
+
 // 让画布随屏幕可用空间自适应，避免在窄/矮的手机屏幕上出现两侧黑边或超出屏幕
 function resizeCanvas() {
   const cs = getComputedStyle(screens.game);

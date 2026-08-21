@@ -6,6 +6,7 @@ body {
   margin: 0;
   min-height: 100vh;
   min-height: 100dvh; /* 手机浏览器地址栏/工具栏显隐时用动态视口高度，减少内容被工具栏遮挡的情况 */
+  min-height: calc(100dvh + 1px); /* 故意比视口多1px，让页面可以微量滚动，配合下面的 scrollTo 把 Safari 悬浮工具栏"顶"下去而不是浮在内容上 */
   display: flex;
   align-items: center;
   justify-content: center;
