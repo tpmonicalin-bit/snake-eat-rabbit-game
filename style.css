@@ -71,6 +71,32 @@ h2 {
   width: 280px;
 }
 
+/* 窄屏（手机竖屏、微信内置浏览器）下两个卡片横排会被硬挤到 150px 左右，
+   文字被迫大量换行反而把整体撑得更高。改成纵向堆叠，每张卡片给足宽度，
+   实际总高度更矮、也更好读。iPad/桌面宽度够，不受影响。 */
+@media (max-width: 620px) {
+  .screen {
+    padding: 16px;
+  }
+  h1 {
+    font-size: 1.8rem;
+  }
+  .subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 16px;
+  }
+  .panels {
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+  .panel {
+    width: 100%;
+    max-width: 360px;
+    padding: 18px;
+  }
+}
+
 .role-choice {
   display: flex;
   flex-direction: column;
