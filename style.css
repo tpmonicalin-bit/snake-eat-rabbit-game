@@ -9,6 +9,8 @@ body {
   min-height: calc(100dvh + 1px); /* 故意比视口多1px，让页面可以微量滚动，配合下面的 scrollTo 把 Safari 悬浮工具栏"顶"下去而不是浮在内容上 */
   display: flex;
   align-items: center;
+  align-items: safe center; /* 内容比可视高度还高时（比如微信内置浏览器上下都有工具栏吃掉高度），退回顶部对齐+可滚动，
+                               而不是居中裁切成头尾都看不到、以为按钮消失了 */
   justify-content: center;
   background: radial-gradient(circle at 50% 0%, #1e3d2f 0%, #0d1f17 60%, #071410 100%);
   color: #eafff2;
